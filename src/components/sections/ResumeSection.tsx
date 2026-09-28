@@ -46,14 +46,22 @@ export const ResumeSection: React.FC<ResumeSectionProps> = ({ onOpenResume }) =>
         </div>
 
         {/* Action Button */}
-        <div className="mt-10">
-          <button
-            onClick={onOpenResume}
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <a
+            href="/resume/Gayathri_V_Resume.pdf"
+            download="Gayathri_V_Resume.pdf"
             className="flex items-center gap-2 px-8 py-4 rounded-2xl text-sm font-bold text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 transition-all shadow-xl shadow-purple-900/40 hover:scale-[1.03] active:scale-[0.98]"
           >
             <Download className="w-4 h-4" />
             <span>Download Resume</span>
             <ArrowRight className="w-4 h-4 ml-1" />
+          </a>
+          <button
+            onClick={onOpenResume}
+            className="flex items-center gap-2 px-6 py-4 rounded-2xl text-sm font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all hover:scale-[1.03] active:scale-[0.98]"
+          >
+            <FileText className="w-4 h-4 text-cyan-400" />
+            <span>View Dossier Details</span>
           </button>
         </div>
       </div>

@@ -6,11 +6,11 @@ import { PERSONAL_INFO } from '../../data/portfolioData';
 import { HeroVisualIdentity } from './HeroVisualIdentity';
 
 interface HeroProps {
-  onOpenResume: () => void;
+  onOpenResume?: () => void;
   onNotify: (msg: string) => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenResume, onNotify }) => {
+export const Hero: React.FC<HeroProps> = ({ onNotify }) => {
   const handleScrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -109,13 +109,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, onNotify }) => {
               <span>Explore My Work</span>
             </button>
 
-            <button
-              onClick={onOpenResume}
+            <a
+              href="/resume/Gayathri_V_Resume.pdf"
+              download="Gayathri_V_Resume.pdf"
               className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-xs sm:text-sm font-bold text-slate-200 bg-white/5 hover:bg-white/10 border border-purple-500/30 hover:border-cyan-400/50 backdrop-blur-md transition-all hover:scale-[1.03] active:scale-[0.98]"
             >
               <FileText className="w-4 h-4 text-purple-300" />
               <span>Download Resume</span>
-            </button>
+            </a>
 
             <button
               onClick={() => handleScrollTo('contact')}

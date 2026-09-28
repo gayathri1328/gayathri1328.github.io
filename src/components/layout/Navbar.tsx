@@ -4,10 +4,10 @@ import { Menu, X, FileText, ArrowRight } from 'lucide-react';
 import { NAV_LINKS, PERSONAL_INFO } from '../../data/portfolioData';
 
 interface NavbarProps {
-  onOpenResume: () => void;
+  onOpenResume?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
+export const Navbar: React.FC<NavbarProps> = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
@@ -112,24 +112,26 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
 
           {/* Action CTAs */}
           <div className="hidden sm:flex items-center gap-3">
-            <button
-              onClick={onOpenResume}
+            <a
+              href="/resume/Gayathri_V_Resume.pdf"
+              download="Gayathri_V_Resume.pdf"
               className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 transition-all duration-200 shadow-md shadow-purple-900/40 hover:shadow-cyan-500/20 hover:scale-[1.03] active:scale-[0.98]"
             >
               <FileText className="w-3.5 h-3.5" />
               <span>Resume</span>
-            </button>
+            </a>
           </div>
 
           {/* Mobile Hamburger Button */}
           <div className="flex items-center gap-2 lg:hidden">
-            <button
-              onClick={onOpenResume}
+            <a
+              href="/resume/Gayathri_V_Resume.pdf"
+              download="Gayathri_V_Resume.pdf"
               className="flex sm:hidden items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-purple-600/80 border border-purple-400/30"
             >
               <FileText className="w-3 h-3" />
               <span>Resume</span>
-            </button>
+            </a>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-xl text-slate-300 hover:text-white bg-white/5 border border-white/10 focus:outline-none"
@@ -175,16 +177,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
                 );
               })}
               <div className="pt-4 mt-2 border-t border-white/10 flex flex-col gap-2">
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenResume();
-                  }}
+                <a
+                  href="/resume/Gayathri_V_Resume.pdf"
+                  download="Gayathri_V_Resume.pdf"
+                  onClick={() => setMobileMenuOpen(false)}
                   className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-cyan-600 shadow-lg shadow-purple-900/40"
                 >
                   <FileText className="w-4 h-4" />
-                  <span>Download / View Resume</span>
-                </button>
+                  <span>Download Resume PDF</span>
+                </a>
               </div>
             </div>
           </motion.div>

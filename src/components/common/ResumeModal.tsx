@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Download, Mail, ExternalLink, GraduationCap, Code2, Award, FileText } from 'lucide-react';
+import { X, Download, ExternalLink, GraduationCap, Code2, Award, FileText } from 'lucide-react';
 import { PERSONAL_INFO } from '../../data/portfolioData';
 
 interface ResumeModalProps {
@@ -10,30 +10,6 @@ interface ResumeModalProps {
 }
 
 export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose, onNotify }) => {
-  const [downloadStatus, setDownloadStatus] = useState<'idle' | 'checking' | 'notice'>('idle');
-
-  const handleDownload = async () => {
-    setDownloadStatus('checking');
-    try {
-      const response = await fetch('/resume.pdf', { method: 'HEAD' });
-      if (response.ok) {
-        // File exists! Trigger download
-        const link = document.createElement('a');
-        link.href = '/resume.pdf';
-        link.download = 'Gayathri_V_Resume.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        setDownloadStatus('idle');
-        onNotify("Resume download started!");
-      } else {
-        // Handled gracefully as requested
-        setDownloadStatus('notice');
-      }
-    } catch {
-      setDownloadStatus('notice');
-    }
-  };
 
   return (
     <AnimatePresence>
@@ -79,33 +55,23 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose, onNot
               </div>
             </div>
 
-            {/* Notice if PDF is pending */}
-            {downloadStatus === 'notice' && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mb-6 p-4 rounded-2xl bg-purple-950/60 border border-purple-400/40 text-xs sm:text-sm text-slate-200"
-              >
-                <div className="flex items-start gap-2.5">
-                  <FileText className="w-5 h-5 text-purple-400 shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold text-white">
-                      Curated Academic Resume Overview Ready Below
-                    </p>
-                    <p className="mt-1 text-slate-300">
-                      The static PDF artifact (`/resume.pdf`) is currently undergoing semester revision. You can review the verified student dossier below or email Gayathri directly for the latest copy.
-                    </p>
-                    <a
-                      href={`mailto:${PERSONAL_INFO.personalEmail}?subject=Resume%20Inquiry%20for%20Gayathri%20V.`}
-                      className="mt-2.5 inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-300 hover:text-cyan-200 underline"
-                    >
-                      <Mail className="w-3.5 h-3.5" />
-                      Email gayathri03042@gmail.com for instant copy
-                    </a>
-                  </div>
+            {/* Verified Document Ready Badge */}
+            <div className="mb-6 p-4 rounded-2xl bg-cyan-950/40 border border-cyan-400/30 text-xs sm:text-sm text-slate-200 flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center gap-2.5">
+                <FileText className="w-5 h-5 text-cyan-400 shrink-0" />
+                <div>
+                  <p className="font-semibold text-white">
+                    Gayathri_V_Resume.pdf (A4 Document)
+                  </p>
+                  <p className="text-[11px] text-slate-400">
+                    B.Tech AI & Data Science • Bannari Amman Institute of Technology (2025–2029)
+                  </p>
                 </div>
-              </motion.div>
-            )}
+              </div>
+              <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-300">
+                ● PDF Verified
+              </span>
+            </div>
 
             {/* Resume Content Sections */}
             <div className="space-y-6 text-sm text-slate-300">
@@ -190,16 +156,25 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose, onNot
               </div>
 
               <div className="flex items-center gap-2 w-full sm:w-auto">
-                <button
-                  onClick={handleDownload}
-                  disabled={downloadStatus === 'checking'}
+                <a
+                  href="/resume/Gayathri_V_Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-cyan-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Open PDF</span>
+                </a>
+
+                <a
+                  href="/resume/Gayathri_V_Resume.pdf"
+                  download="Gayathri_V_Resume.pdf"
+                  onClick={() => onNotify("Resume download started!")}
                   className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 transition-all shadow-lg shadow-purple-900/40"
                 >
                   <Download className="w-4 h-4" />
-                  <span>
-                    {downloadStatus === 'checking' ? 'Checking file...' : 'Download Resume PDF'}
-                  </span>
-                </button>
+                  <span>Download Resume PDF</span>
+                </a>
               </div>
             </div>
           </motion.div>
