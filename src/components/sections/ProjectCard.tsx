@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Layers, ArrowUpRight, Eye, ShieldAlert, Sparkles, Check, Database, Ship } from 'lucide-react';
 import type { Project } from '../../types/portfolio';
@@ -10,6 +10,34 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenCaseStudy, index }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [lightPos, setLightPos] = useState({ x: 50, y: 50 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Light percentage position
+    setLightPos({
+      x: (x / rect.width) * 100,
+      y: (y / rect.height) * 100,
+    });
+
+    // Subtle professional tilt between -4 and 4 degrees
+    const tiltX = ((y / rect.height) - 0.5) * -7;
+    const tiltY = ((x / rect.width) - 0.5) * 7;
+    setTilt({ x: tiltX, y: tiltY });
+  };
+
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setTilt({ x: 0, y: 0 });
+  };
 
   // Render project-specific visual preview
   const renderVisualPreview = () => {
@@ -258,15 +286,37 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenCaseStu
 
   return (
     <motion.div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="glass-panel rounded-3xl p-6 sm:p-7 border border-white/10 hover:border-purple-500/40 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
+      style={{
+        transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) translateY(${isHovered ? -6 : 0}px)`,
+        transition: 'transform 0.18s ease-out, border-color 0.3s ease, box-shadow 0.3s ease',
+      }}
+      className={`project-card glass-panel rounded-3xl p-6 sm:p-7 border transition-all duration-300 flex flex-col justify-between group relative overflow-hidden ${
+        isHovered
+          ? 'border-cyan-400/60 shadow-[0_20px_50px_rgba(6,182,212,0.18),0_0_20px_rgba(168,85,247,0.25)]'
+          : 'border-white/10 hover:border-purple-500/40'
+      }`}
+      data-cursor="project"
     >
+      {/* Cursor-Following Ambient Light on Card Surface */}
+      <div
+        className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+        style={{
+          opacity: isHovered ? 1 : 0,
+          background: `radial-gradient(450px circle at ${lightPos.x}% ${lightPos.y}%, rgba(34, 211, 238, 0.14), rgba(168, 85, 247, 0.08) 40%, transparent 75%)`,
+        }}
+      />
+
       <div>
-        {/* Visual Mockup Container */}
-        <div className="mb-6 relative">
+        {/* Visual Mockup Container with slight scale */}
+        <div className="mb-6 relative transition-transform duration-500 group-hover:scale-[1.015]">
           {renderVisualPreview()}
         </div>
 
@@ -276,17 +326,17 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenCaseStu
             {project.category}
           </span>
           {project.badge && (
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono text-purple-300 bg-purple-950/70 border border-purple-500/30">
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono text-purple-300 bg-purple-950/70 border border-purple-500/30 group-hover:border-cyan-400/40 transition-colors">
               {project.badge}
             </span>
           )}
         </div>
 
-        {/* Title & Subtitle */}
-        <h3 className="font-display font-black text-2xl text-white group-hover:text-cyan-200 transition-colors tracking-tight">
+        {/* Title & Subtitle with subtle shift */}
+        <h3 className="font-display font-black text-2xl text-white group-hover:text-cyan-200 transition-all duration-200 tracking-tight group-hover:translate-x-1">
           {project.title}
         </h3>
-        <p className="text-xs text-purple-300/90 font-mono mt-1">
+        <p className="text-xs text-purple-300/90 font-mono mt-1 group-hover:translate-x-1 transition-transform duration-200">
           {project.subtitle}
         </p>
 
@@ -300,7 +350,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenCaseStu
           {project.technologies.slice(0, 4).map((tech, idx) => (
             <span
               key={idx}
-              className="px-2.5 py-1 rounded-lg text-[10px] font-mono text-slate-300 bg-white/[0.04] border border-white/5"
+              className="px-2.5 py-1 rounded-lg text-[10px] font-mono text-slate-300 bg-white/[0.04] border border-white/5 hover:border-cyan-400/40 hover:text-cyan-300 transition-colors"
             >
               {tech}
             </span>
@@ -317,7 +367,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenCaseStu
       <div className="mt-7 pt-5 border-t border-white/10 flex items-center justify-between flex-wrap gap-3">
         <button
           onClick={() => onOpenCaseStudy(project)}
-          className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-cyan-300 hover:text-white transition-colors group/btn"
+          className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-cyan-300 hover:text-white transition-colors group/btn cursor-pointer"
         >
           <Layers className="w-3.5 h-3.5 text-cyan-400 group-hover/btn:rotate-12 transition-transform" />
           <span>View Deep Architecture</span>
@@ -330,7 +380,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenCaseStu
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 transition-all shadow-md shadow-purple-950/40"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 transition-all shadow-md shadow-purple-950/40 hover:shadow-cyan-500/20 hover:scale-[1.03] active:scale-[0.98]"
           >
             <ExternalLink className="w-3.5 h-3.5" />
             <span>Live Demo</span>

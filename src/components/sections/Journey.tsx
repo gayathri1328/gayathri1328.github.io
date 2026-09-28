@@ -15,8 +15,15 @@ export const Journey: React.FC = () => {
       />
 
       <div className="relative max-w-4xl mx-auto">
-        {/* Central Connecting Neon Spine */}
-        <div className="absolute left-4 sm:left-1/2 top-4 bottom-4 w-[2px] bg-gradient-to-b from-purple-500 via-cyan-400 to-pink-500 -translate-x-1/2 opacity-40 shadow-[0_0_12px_rgba(168,85,247,0.5)]" />
+        {/* Central Connecting Neon Spine Growing Progressively */}
+        <motion.div
+          initial={{ scaleY: 0, opacity: 0.2 }}
+          whileInView={{ scaleY: 1, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          style={{ originY: 0 }}
+          className="absolute left-4 sm:left-1/2 top-4 bottom-4 w-[2px] bg-gradient-to-b from-purple-500 via-cyan-400 to-pink-500 -translate-x-1/2 shadow-[0_0_16px_rgba(6,182,212,0.6)]"
+        />
 
         <div className="space-y-12 sm:space-y-16">
           {JOURNEY_MILESTONES.map((milestone, idx) => {
@@ -25,18 +32,24 @@ export const Journey: React.FC = () => {
             return (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 35 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.55, delay: idx * 0.12 }}
                 className={`relative flex flex-col sm:flex-row items-start ${
                   isEven ? 'sm:flex-row-reverse' : ''
                 } gap-6 sm:gap-10`}
               >
-                {/* Center Node Dot */}
-                <div className="absolute left-4 sm:left-1/2 top-6 -translate-x-1/2 w-8 h-8 rounded-full bg-[#0c0e27] border-2 border-cyan-400 flex items-center justify-center z-10 shadow-[0_0_15px_rgba(6,182,212,0.8)]">
+                {/* Center Illuminating Node Dot */}
+                <motion.div
+                  initial={{ scale: 0.6, opacity: 0.5 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: idx * 0.15 }}
+                  className="absolute left-4 sm:left-1/2 top-6 -translate-x-1/2 w-8 h-8 rounded-full bg-[#0c0e27] border-2 border-cyan-400 flex items-center justify-center z-10 shadow-[0_0_18px_rgba(6,182,212,0.9)] hover:scale-125 transition-transform"
+                >
                   <div className="w-2.5 h-2.5 rounded-full bg-cyan-300 animate-ping" />
-                </div>
+                </motion.div>
 
                 {/* Milestone Content Card */}
                 <div className="ml-12 sm:ml-0 sm:w-1/2">
