@@ -36,7 +36,7 @@ export const About: React.FC = () => {
 
           <div className="relative z-10 space-y-5 text-sm sm:text-base text-slate-300 leading-relaxed">
             <p>
-              I am an undergraduate student pursuing my <strong className="text-white font-semibold">B.Tech in Artificial Intelligence & Data Science</strong> at <span className="text-cyan-300 font-medium">Bannari Amman Institute of Technology (2024–2028)</span>.
+              I am an undergraduate student pursuing my <strong className="text-white font-semibold">B.Tech in Artificial Intelligence & Data Science</strong> at <span className="text-cyan-300 font-medium">Bannari Amman Institute of Technology (2025–2029)</span>.
             </p>
 
             <p>
@@ -89,7 +89,7 @@ export const About: React.FC = () => {
                 Academic Progress
               </span>
               <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-cyan-950/70 border border-cyan-500/30 text-cyan-300">
-                2024 – 2028
+                2025 – 2029
               </span>
             </div>
             <h4 className="font-display font-bold text-lg text-white">

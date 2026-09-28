@@ -117,7 +117,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose, onNot
                 </div>
                 <div className="flex justify-between items-baseline flex-wrap gap-1">
                   <h4 className="font-semibold text-white">B.Tech – Artificial Intelligence & Data Science</h4>
-                  <span className="text-xs text-purple-300 font-mono">2024 – 2028</span>
+                  <span className="text-xs text-purple-300 font-mono">2025 – 2029</span>
                 </div>
                 <p className="text-xs text-slate-400">Bannari Amman Institute of Technology</p>
                 <p className="text-xs text-emerald-400 font-mono mt-1 font-semibold">

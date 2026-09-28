@@ -33,7 +33,7 @@ export const ResumeSection: React.FC<ResumeSectionProps> = ({ onOpenResume }) =>
         <div className="mt-8 flex flex-wrap justify-center gap-3 sm:gap-6 text-xs font-mono text-slate-300">
           <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/10">
             <GraduationCap className="w-4 h-4 text-cyan-400" />
-            <span>BIT Sathy (2024–2028)</span>
+            <span>BIT Sathy (2025–2029)</span>
           </div>
           <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/10">
             <Award className="w-4 h-4 text-purple-400" />

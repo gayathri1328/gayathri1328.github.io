@@ -6,7 +6,7 @@ export const PERSONAL_INFO = {
   monogram: "GV",
   title: "B.Tech Artificial Intelligence & Data Science Student",
   institution: "Bannari Amman Institute of Technology",
-  academicPeriod: "2024 – 2028",
+  academicPeriod: "2025 – 2029",
   currentCgpa: "7.28",
   institutionalEmail: "gayathriv.ad25@bitsathy.ac.in",
   personalEmail: "gayathri03042@gmail.com",
@@ -57,7 +57,7 @@ export const CORE_PILLARS = [
 export const EDUCATION_DATA = {
   degree: "B.Tech – Artificial Intelligence & Data Science",
   institution: "Bannari Amman Institute of Technology",
-  duration: "2024 – 2028",
+  duration: "2025 – 2029",
   cgpa: "7.28",
   location: "Sathyamangalam, Tamil Nadu",
   learningAreas: [
@@ -272,23 +272,23 @@ export const PROJECTS_DATA: Project[] = [
 
 export const JOURNEY_MILESTONES: JourneyMilestone[] = [
   {
-    year: "2024",
+    year: "2025",
     phase: "The Spark & Matriculation",
     title: "Commenced B.Tech in AI & Data Science",
     organization: "Bannari Amman Institute of Technology",
-    description: "Enrolled in the B.Tech Artificial Intelligence & Data Science program (2024–2028). Established core foundations in structured problem solving and computer engineering.",
+    description: "Enrolled in the B.Tech Artificial Intelligence & Data Science program (2025–2029). Established core foundations in structured problem solving and computer engineering.",
     highlightBadge: "Academic Journey Begins",
     tags: ["Matriculation", "AI & Data Science", "Curiosity"]
   },
   {
-    year: "2024",
+    year: "2025",
     phase: "Foundational Foundations",
     title: "Mastering Core Programming & Logic",
     description: "Immersed in C programming, C++, basic data structures, and algorithmic logic. Built early console utilities and explored computational problem solving.",
     tags: ["C", "C++", "Data Structures", "Algorithmic Thinking"]
   },
   {
-    year: "2024 – 2025",
+    year: "2025 – 2026",
     phase: "First Deployments",
     title: "Web Engineering & Study Buddy",
     description: "Transitioned from console programs to visual web software. Built and deployed Study Buddy to the web to solve everyday student organization friction.",

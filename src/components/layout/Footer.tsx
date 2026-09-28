@@ -55,7 +55,7 @@ export const Footer: React.FC = () => {
             </div>
 
             <p className="text-xs sm:text-sm text-slate-400 max-w-sm leading-relaxed">
-              Bannari Amman Institute of Technology (2024–2028). An AI & Data Science student who loves turning ideas into creative, intelligent digital experiences.
+              Bannari Amman Institute of Technology (2025–2029). An AI & Data Science student who loves turning ideas into creative, intelligent digital experiences.
             </p>
 
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[11px] font-mono text-slate-400">
